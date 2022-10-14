@@ -27,9 +27,32 @@ var application = new Vue({
           return (parseInt(a[key]) >= parseInt(b[key])) ? 1 : -1;
         });
       },
+  
+      pageClick(page) {
+        this.pageNumber = page;
+      },
+  
+      rightClick() {
+        this.pageNumber++;
+      },
+  
+      leftClick() {
+        this.pageNumber--;
+      }
+  
     },
     created:function() {
       this.fetchAllData();
     },
-
+    computed: {
+      pages() {
+        return Math.ceil(this.allData.length / 10 + 1);
+      },
+  
+      paginatedPages() {
+        let from = (this.pageNumber - 1) * this.rowsPerPage;
+        let to = from + this.rowsPerPage;
+        return this.allData.slice(from, to);
+      }
+    }
   });

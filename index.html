@@ -38,7 +38,7 @@
                   <th @click="sortBy('count')">Count <i class="fa fa-fw fa-sort"></i></th>
                   <th @click="sortBy('distance')">Distance <i class="fa fa-fw fa-sort"></i></th>
                 </tr>
-                <tr v-for="i in allData">
+                <tr v-for="i in paginatedPages">
                   <td>{{ i.id }}</td>
                   <td>{{ i.date }}</td>
                   <td>{{ i.name }}</td>
@@ -46,6 +46,24 @@
                   <td>{{ i.distance }}</td>
                 </tr>
               </table>
+
+              <div class="table-pagination">
+                <button @click="leftClick()" :disabled="pageNumber === 1" class="arrow arrow-left">
+                  <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <div class="page" 
+                    v-for="page in pages" 
+                    @click="pageClick(page)" 
+                    :key="page"
+                    :class="{'page-active': page === pageNumber}">
+                          {{ page }}
+                </div>
+
+                <button @click="rightClick()" :disabled="pageNumber > Math.ceil(this.allData.length / 10)" class="arrow arrow-right">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
 
             </div>
           </div>
