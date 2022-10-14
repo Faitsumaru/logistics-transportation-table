@@ -3,10 +3,61 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>logistics-transportation-table</title>
+    <title>Logistics Transportation Table</title>
+    
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
   </head>
+
   <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+
+    <div id="app"> 
+      <div class="container">
+        
+        <h1 class="title"><hr>Logistics Transportation Table on Vue.js<hr></h1>
+          
+        <!-- <input type="button" value="CLICK ON ME" @click='fetchAllData()'> -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="row">
+              <h2 class="panel-title"> Таблица перевозок:</h2>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <div class="table-responsive">
+              
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th @click="sortBy('id')">ID <i class="fa fa-fw fa-sort"></i></th>
+                  <th @click="sortBy('date')">Date <i class="fa fa-fw fa-sort"></i></th>
+                  <th @click="sortBy('name')">Name <i class="fa fa-fw fa-sort"></i></th>
+                  <th @click="sortBy('count')">Count <i class="fa fa-fw fa-sort"></i></th>
+                  <th @click="sortBy('distance')">Distance <i class="fa fa-fw fa-sort"></i></th>
+                </tr>
+                <tr v-for="i in allData">
+                  <td>{{ i.id }}</td>
+                  <td>{{ i.date }}</td>
+                  <td>{{ i.name }}</td>
+                  <td>{{ i.count }}</td>
+                  <td>{{ i.distance }}</td>
+                </tr>
+              </table>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
   </body>
 </html>
+
+<script src="https://unpkg.com/axios@1.0.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
