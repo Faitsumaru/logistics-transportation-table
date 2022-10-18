@@ -4,7 +4,16 @@ var application = new Vue({
       return {
         allData: [],
         pageNumber: 1,
-        rowsPerPage: 5
+        rowsPerPage: 5,
+        searchInfo: '',
+        filterSelType: 'name',
+        filterSelOptions: [
+          { text: 'ID', value: 'id' },
+          { text: 'Date', value: 'date' },
+          { text: 'Name', value: 'name' },
+          { text: 'Count', value: 'count' },
+          { text: 'Distance', value: 'distance' }
+        ]
       };
     },
     methods: {
@@ -38,8 +47,30 @@ var application = new Vue({
   
       leftClick() {
         this.pageNumber--;
+      },
+
+      filterSelect(colSel = this.filterSelType) {
+        //console.log(colSel);
+        return colSel;
+      },
+
+      changeList() {
+        this.rowsPerPage = 10;
+        return this.rowsPerPage;
+      },
+
+      fullArr() {
+        let pagination = document.querySelector('.table-pagination');
+        if (!pagination.classList.contains('--active')) {
+          pagination.classList.add('--active');
+          this.pageNumber = 1;
+          this.rowsPerPage = this.allData.length;
+        } else {
+          pagination.classList.remove('--active');
+          this.rowsPerPage = 5;
+        }
+        return this.rowsPerPage;
       }
-  
     },
     created:function() {
       this.fetchAllData();
@@ -53,6 +84,18 @@ var application = new Vue({
         let from = (this.pageNumber - 1) * this.rowsPerPage;
         let to = from + this.rowsPerPage;
         return this.allData.slice(from, to);
+      },
+      
+      filteredList() {        
+        let sel = this.filterSelect();
+        var si = this.searchInfo;
+        return this.paginatedPages.filter(function (elem) {
+          if(si !== '') {
+            return elem[sel].toLowerCase().indexOf(si) > -1;
+          }
+          return true;
+        })
       }
+      
     }
   });
